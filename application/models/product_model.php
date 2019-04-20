@@ -19,9 +19,10 @@ class Product_model extends CI_Model {
     }
   }
 
-  public function getallproduct(){   
+  public function getallproduct($id_user){   
     $this->db->select('id, id_user, title, description, status, dt_create, dt_update');
     $this->db->from('product');
+    $this->db->where('id_user',$id_user);
     $this->db->where('status','A');
     $this->db->order_by('id', 'desc'); 
 

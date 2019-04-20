@@ -19,9 +19,10 @@ class Image_model extends CI_Model {
     }
   }
 
-  public function getallimage(){   
+  public function getallimage($id_product){   
     $this->db->select('id, id_product, file_name, status, dt_create');
     $this->db->from('image');
+    $this->db->where('id_product',$id_product);
     $this->db->where('status','A');
     $this->db->order_by('id', 'desc'); 
 

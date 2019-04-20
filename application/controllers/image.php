@@ -9,6 +9,22 @@ class image extends REST_Controller {
        $this->load->model('image_model');
     }
 
+
+    function imageall_get(){
+
+       $id_product  = $this->get('id_product');
+       if(!$id_product){
+            $this->response("No product specified", 400);
+            exit;
+        }
+       $result = $this->image_model->getallimage($id_product); 
+	   if($result){ 
+	      $this->response($result, 200); 
+	   } else{ 
+	      $this->response("No record found", 404); 
+	   }
+    }
+
     function imagebyid_get()
     {
         $id  = $this->get('id');

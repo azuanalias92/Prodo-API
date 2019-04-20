@@ -9,6 +9,21 @@ class product extends REST_Controller {
        $this->load->model('product_model');
     }
 
+    function productall_get(){
+
+       $id_user  = $this->get('id_user');
+       if(!$id_user){
+            $this->response("No user specified", 400);
+            exit;
+        }
+       $result = $this->product_model->getallproduct($id_user); 
+	   if($result){ 
+	      $this->response($result, 200); 
+	   } else{ 
+	      $this->response("No record found", 404); 
+	   }
+    }
+
     function productbyid_get()
     {
         $id  = $this->get('id');
