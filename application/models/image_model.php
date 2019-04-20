@@ -9,6 +9,7 @@ class Image_model extends CI_Model {
     $this->db->select('id, id_product, file_name, status, dt_create');
     $this->db->from('image');
     $this->db->where('id',$id);
+    $this->db->where('status','A');
 
     $query = $this->db->get();
     if($query->num_rows() == 1){
@@ -21,6 +22,7 @@ class Image_model extends CI_Model {
   public function getallimage(){   
     $this->db->select('id, id_product, file_name, status, dt_create');
     $this->db->from('image');
+    $this->db->where('status','A');
     $this->db->order_by('id', 'desc'); 
 
     $query = $this->db->get();

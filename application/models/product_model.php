@@ -9,6 +9,7 @@ class Product_model extends CI_Model {
     $this->db->select('id, id_user, title, description, status, dt_create, dt_update');
     $this->db->from('product');
     $this->db->where('id',$id);
+    $this->db->where('status','A');
 
     $query = $this->db->get();
     if($query->num_rows() == 1){
@@ -21,6 +22,7 @@ class Product_model extends CI_Model {
   public function getallproduct(){   
     $this->db->select('id, id_user, title, description, status, dt_create, dt_update');
     $this->db->from('product');
+    $this->db->where('status','A');
     $this->db->order_by('id', 'desc'); 
 
     $query = $this->db->get();
