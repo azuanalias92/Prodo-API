@@ -1,13 +1,13 @@
 <?php
-class User_model extends CI_Model {
+class Product_model extends CI_Model {
      
   public function __construct(){     
     $this->load->database(); 
   }
 
-  public function getuserbyid($id){  
-    $this->db->select('id, username, password, email, password, status, dt_create, dt_update');
-    $this->db->from('user');
+  public function getproductbyid($id){  
+    $this->db->select('id, id_user, title, description, status, dt_create, dt_update');
+    $this->db->from('product');
     $this->db->where('id',$id);
 
     $query = $this->db->get();
@@ -18,9 +18,9 @@ class User_model extends CI_Model {
     }
   }
 
-  public function getallusers(){   
-    $this->db->select('id, username, password, email, password, status, dt_create, dt_update');
-    $this->db->from('user');
+  public function getallproduct(){   
+    $this->db->select('id, id_user, title, description, status, dt_create, dt_update');
+    $this->db->from('product');
     $this->db->order_by('id', 'desc'); 
 
     $query = $this->db->get();
@@ -33,7 +33,7 @@ class User_model extends CI_Model {
 
   public function delete($id){
     $this->db->where('id', $id);
-    if($this->db->delete('user')){
+    if($this->db->delete('product')){
       return true;
     }else{
       return false;
@@ -41,7 +41,7 @@ class User_model extends CI_Model {
   }
 
   public function add($data){
-    if($this->db->insert('user', $data)){
+    if($this->db->insert('product', $data)){
       return true;
     }else{
       return false;
@@ -50,7 +50,7 @@ class User_model extends CI_Model {
 
   public function update($id, $data){
     $this->db->where('id', $id);
-    if($this->db->update('user', $data)){
+    if($this->db->update('product', $data)){
       return true;
     }else{
       return false;

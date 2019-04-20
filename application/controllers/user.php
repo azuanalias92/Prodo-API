@@ -36,9 +36,6 @@ class user extends REST_Controller {
 		if(!$username || !$email || !$password){
 		    $this->response("Enter complete user information to save", 400);
 		}else{
-
-			date_default_timezone_set('Asia/Kuala_Lumpur'); 
-			$now = date('Y-m-d H:i:s');
 			$hash = password_hash($password, PASSWORD_BCRYPT);
 			$result = $this->user_model->add(
 				array(
@@ -46,7 +43,7 @@ class user extends REST_Controller {
 					"email"		=>$email, 
 					"password"	=>$hash, 
 					"status"	=>'A', 
-					"dt_create"	=>$now
+					"dt_create"	=>$this->getDate()
 					));
 			if($result === 0){
 			    $this->response("User information could not be saved. Try again.", 404);
@@ -82,17 +79,12 @@ class user extends REST_Controller {
 
     function userdelete_post()
     {
-        $id 			= $this->post('id');
-        $username      	= $this->post('username');
-		$email     		= $this->post('email');
-
-		if(!$id || !$username || !$email ){
+        $id = $this->post('id');
+		if(!$id){
 		    $this->response("Enter complete user information to update", 400);
 		}else{
 			$result = $this->user_model->update($id,
 				array(
-					"username"	=>$username, 
-					"email"		=>$email, 
 					"status"	=>'D', 
 					"dt_update"	=>$this->getDate()
 					));
