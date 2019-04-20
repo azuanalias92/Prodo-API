@@ -9,7 +9,7 @@ class user extends REST_Controller {
        $this->load->model('user_model');
     }
 
-    function usersbyid_get()
+    function userbyid_get()
     {
         $id  = $this->get('id');
         if(!$id){
@@ -58,11 +58,55 @@ class user extends REST_Controller {
 
     function userupdate_post()
     {
-        // update an existing user and respond with a status/errors
+    	$id 			= $this->post('id');
+        $username      	= $this->post('username');
+		$email     		= $this->post('email');
+
+		if(!$id || !$username || !$email ){
+		    $this->response("Enter complete user information to update", 400);
+		}else{
+			$result = $this->user_model->update($id,
+				array(
+					"username"	=>$username, 
+					"email"		=>$email, 
+					"status"	=>'A', 
+					"dt_update"	=>$this->getDate()
+					));
+			if($result === 0){
+			    $this->response("User information could not be saved. Try again.", 404);
+			}else{
+			    $this->response("Success", 200);  
+			}
+		}
     }
 
     function userdelete_post()
     {
-        // update an existing user and respond with a status/errors
+        $id 			= $this->post('id');
+        $username      	= $this->post('username');
+		$email     		= $this->post('email');
+
+		if(!$id || !$username || !$email ){
+		    $this->response("Enter complete user information to update", 400);
+		}else{
+			$result = $this->user_model->update($id,
+				array(
+					"username"	=>$username, 
+					"email"		=>$email, 
+					"status"	=>'D', 
+					"dt_update"	=>$this->getDate()
+					));
+			if($result === 0){
+			    $this->response("User information could not be saved. Try again.", 404);
+			}else{
+			    $this->response("Success", 200);  
+			}
+		}
+    }
+
+    function getDate(){
+    	date_default_timezone_set('Asia/Kuala_Lumpur'); 
+		$now = date('Y-m-d H:i:s');
+		return $now;
     }
 }
