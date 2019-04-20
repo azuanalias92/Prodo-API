@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /prodo-api
+RewriteCond $1 !^(index\.php|images|table-images|robots\.txt|styles|js|uploads)
+RewriteRule ^(.*)$ index.php/$1 [L]
